@@ -1,11 +1,11 @@
-class Sura {
+class SuraModel {
   String? surahName;
   String? surahNameArabic;
   String? surahNameTranslation;
   String? revelationPlace;
   int? totalAyah;
 
-  Sura({
+  SuraModel({
     this.surahName,
     this.surahNameArabic,
     this.surahNameTranslation,

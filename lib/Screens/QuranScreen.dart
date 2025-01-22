@@ -7,7 +7,7 @@ import 'package:holy_quran/Widgets/surahName.dart';
 import 'package:http/http.dart';
 
 import '../colors.dart';
-import '../models/sura.dart';
+import '../models/sura_model.dart';
 
 class QuranScreen extends StatefulWidget {
   const QuranScreen({super.key});
@@ -17,7 +17,7 @@ class QuranScreen extends StatefulWidget {
 }
 
 class _QuranScreenState extends State<QuranScreen> {
-  List<Sura> surahList = [];
+  List<SuraModel> surahList = [];
   bool _getProductListInProgress = false;
 
   @override
@@ -110,7 +110,7 @@ class _QuranScreenState extends State<QuranScreen> {
     if (response.statusCode == 200) {
       final decodedData = jsonDecode(utf8.decode(response.bodyBytes));
       for (Map<String, dynamic> s in decodedData) {
-        Sura sura = Sura(
+        SuraModel sura = SuraModel(
           surahName: s['surahName'],
           surahNameArabic: s['surahNameArabic'],
           revelationPlace: s['revelationPlace'],
