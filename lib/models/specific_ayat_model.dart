@@ -54,8 +54,8 @@ class SpecificAyatModel {
 
 class Audio {
   Audio({
-    this.reciter,
-    this.url,
+     this.reciter,
+     required this.url,
   });
 
   final String? reciter;

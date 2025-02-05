@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -8,9 +9,9 @@ import 'package:holy_quran/models/specific_ayat_model.dart';
 import 'package:holy_quran/models/sura_model.dart';
 import 'package:http/http.dart';
 
-
 class SuraDetailsScreen extends StatefulWidget {
   const SuraDetailsScreen({super.key, required this.suraNo, this.suraModel});
+
   final int suraNo;
   final SuraModel? suraModel;
 
@@ -82,7 +83,10 @@ class _SuraDetailsScreenState extends State<SuraDetailsScreen> {
             radius: 18,
             child: Text(
               '${index + 1}',
-              style: GoogleFonts.poppins(color: Colors.white, fontSize: 14, fontWeight: FontWeight.w600),
+              style: GoogleFonts.poppins(
+                  color: Colors.white,
+                  fontSize: 14,
+                  fontWeight: FontWeight.w600),
             ),
           ),
           trailing: Row(
@@ -90,7 +94,54 @@ class _SuraDetailsScreenState extends State<SuraDetailsScreen> {
             mainAxisSize: MainAxisSize.min,
             children: [
               IconButton(
-                onPressed: () {},
+                onPressed: () {
+                  AudioPlayer player = AudioPlayer();
+                  showDialog (
+                      context: context,
+                      builder: (BuildContext context) {
+                        return AlertDialog(
+                        title: Text(
+                          'Choose reciter',
+                          style:
+                              GoogleFonts.poppins(fontWeight: FontWeight.bold),
+                        ),
+                        actions: [
+                            TextButton(
+                                onPressed: () async{
+                                  await player.stop();
+                                  final audioMap = ayatList[index].audio;
+                                  final firstAudio = audioMap!.values.first;
+                                  final String? url = firstAudio.url;
+                                  await player.play(UrlSource(url!));
+                                  Navigator.pop(context);
+                                },
+                            child: Text('Mishary Rashid Al-Afasy',
+                                style: GoogleFonts.poppins(
+                                    fontWeight: FontWeight.bold)),
+                          ),
+                          TextButton(
+                              onPressed: () async{
+                                await player.stop();
+                                final audioMap = ayatList[index].audio;
+                                final secondAudio = audioMap!.values.last;
+                                final String? url = secondAudio.url;
+                                await player.play(UrlSource(url!));
+                                Navigator.pop(context);
+                              },
+                            child: Text('Abu Bakr Al-Shatri',
+                                style: GoogleFonts.poppins(
+                                    fontWeight: FontWeight.bold)),
+                          ),
+                        ],
+                        );
+                      },
+                  );
+                  // final player = AudioPlayer();
+                  // final audioMap = ayatList[index].audio;
+                  // final firstAudio = audioMap!.values.first;
+                  // final String? url = firstAudio.url;
+                  // await player.play(UrlSource(url!));
+                },
                 icon: const Icon(
                   Icons.play_arrow_rounded,
                   size: 30,
@@ -114,7 +165,10 @@ class _SuraDetailsScreenState extends State<SuraDetailsScreen> {
                   child: Text(
                     // Ayat Arabic
                     ayatList[index].arabic1 ?? '',
-                    style: GoogleFonts.amiri(color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold),
+                    style: GoogleFonts.amiri(
+                        color: Colors.white,
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold),
                   ),
                 ),
                 const SizedBox(
@@ -147,25 +201,25 @@ class _SuraDetailsScreenState extends State<SuraDetailsScreen> {
     _getAyatInProgress = true;
     setState(() {});
     int? suraNo = widget.suraNo + 1;
-    int? totalAyah =  widget.suraModel!.totalAyah ;
-    for (int i = 1; i<=totalAyah!; i++) {
+    int? totalAyah = widget.suraModel!.totalAyah;
+    for (int i = 1; i <= totalAyah!; i++) {
       Uri uri = Uri.parse('https://quranapi.pages.dev/api/$suraNo/$i.json');
       Response response = await get(uri);
       debugPrint(utf8.decode(response.bodyBytes));
       if (response.statusCode == 200) {
         final decodedData = jsonDecode(utf8.decode(response.bodyBytes));
-        SpecificAyatModel specificAyatModel = SpecificAyatModel.fromJson(decodedData);
+        SpecificAyatModel specificAyatModel =
+            SpecificAyatModel.fromJson(decodedData);
         ayatList.add(specificAyatModel);
       }
     }
     _getAyatInProgress = false;
-    setState(() { });
+    setState(() {});
   }
 }
 
-
 PreferredSizeWidget _suraDetailsAppBar() {
-  return AppBar (
+  return AppBar(
     backgroundColor: Colors.transparent,
     leading: IconButton(
       onPressed: () {},
