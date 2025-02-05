@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:holy_quran/Screens/SuraDetailsScreen.dart';
 
 import 'Screens/StartScreen.dart';
 
@@ -15,6 +16,7 @@ class MyApp extends StatelessWidget {
     return const MaterialApp(
       debugShowCheckedModeBanner: false,
       home: StartScreen(),
+      // home: SuraDetailsScreen(),
     );
   }
 }

@@ -113,6 +113,8 @@ class _QuranScreenState extends State<QuranScreen> {
         SuraModel sura = SuraModel(
           surahName: s['surahName'],
           surahNameArabic: s['surahNameArabic'],
+          suraNameArabicLong: s['surahNameArabicLong'],
+          surahNameTranslation: s['surahNameTranslation'],
           revelationPlace: s['revelationPlace'],
           totalAyah: s['totalAyah'],
         );
@@ -132,7 +134,7 @@ Widget _gradientBox() {
       child: Stack(
         children: [
           Container(
-            height: 131,
+            height: 130,
             decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(16),
                 gradient: const LinearGradient(

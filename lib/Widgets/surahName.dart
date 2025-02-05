@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:holy_quran/Screens/SuraDetailsScreen.dart';
 import 'package:holy_quran/colors.dart';
 import 'package:holy_quran/models/sura_model.dart';
 
@@ -16,7 +17,9 @@ class SurahName extends StatelessWidget {
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(18),
       ),
-      onTap: () {},
+      onTap: () {
+        Navigator.push(context, MaterialPageRoute(builder: (context) => SuraDetailsScreen(suraModel: sura, suraNo: suraNo,)));
+      },
       leading: Stack(
         alignment: Alignment.center,
         children: [
