@@ -3,11 +3,11 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:holy_quran/Widgets/surahName.dart';
+import 'package:holy_quran/colors.dart';
+import 'package:holy_quran/data/models/sura_model.dart';
+import 'package:holy_quran/ui/Widgets/surahName.dart';
+import 'package:holy_quran/ui/controllers/auth_controller.dart';
 import 'package:http/http.dart';
-
-import '../colors.dart';
-import '../models/sura_model.dart';
 
 class QuranScreen extends StatefulWidget {
   const QuranScreen({super.key});
@@ -23,7 +23,7 @@ class _QuranScreenState extends State<QuranScreen> {
   @override
   void initState() {
     super.initState();
-    _getSuraList(); // Call an auxiliary async function
+    _getSuraList();
   }
 
   @override
@@ -52,7 +52,7 @@ class _QuranScreenState extends State<QuranScreen> {
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 22.0),
           child: Text(
-            'Md. Shaon',
+            AuthController.userModel!.fullName,
             style: GoogleFonts.poppins(
                 fontSize: 30, fontWeight: FontWeight.w600, color: Colors.white),
           ),
@@ -123,7 +123,7 @@ class _QuranScreenState extends State<QuranScreen> {
       setState(() {});
     }
     _getProductListInProgress = false;
-    setState(() { });
+    setState(() {});
   }
 }
 

@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:holy_quran/Screens/BookmarkScreen.dart';
-import 'package:holy_quran/Screens/DuaScreen.dart';
-import 'package:holy_quran/Screens/HadithScreen.dart';
-import 'package:holy_quran/Screens/QiblaScreen.dart';
-import 'package:holy_quran/Screens/QuranScreen.dart';
-
-import '../colors.dart';
+import 'package:holy_quran/colors.dart';
+import 'package:holy_quran/ui/Screens/BookmarkScreen.dart';
+import 'package:holy_quran/ui/Screens/DuaScreen.dart';
+import 'package:holy_quran/ui/Screens/HadithScreen.dart';
+import 'package:holy_quran/ui/Screens/QiblaScreen.dart';
+import 'package:holy_quran/ui/Screens/QuranScreen.dart';
 import '../Widgets/drawer.dart';
 
 class HomeScreen extends StatefulWidget {

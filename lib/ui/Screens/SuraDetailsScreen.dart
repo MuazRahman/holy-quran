@@ -5,8 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:holy_quran/colors.dart';
-import 'package:holy_quran/models/specific_ayat_model.dart';
-import 'package:holy_quran/models/sura_model.dart';
+import 'package:holy_quran/data/models/specific_ayat_model.dart';
+import 'package:holy_quran/data/models/sura_model.dart';
 import 'package:http/http.dart';
 
 class SuraDetailsScreen extends StatefulWidget {

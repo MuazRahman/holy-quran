@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:holy_quran/Screens/SuraDetailsScreen.dart';
 import 'package:holy_quran/colors.dart';
-import 'package:holy_quran/models/sura_model.dart';
+import 'package:holy_quran/data/models/sura_model.dart';
+import 'package:holy_quran/ui/Screens/SuraDetailsScreen.dart';
 
 class SurahName extends StatelessWidget {
   const SurahName({super.key, required this.sura, required this.suraNo});
