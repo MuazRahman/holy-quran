@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:holy_quran/colors.dart';
 import 'package:holy_quran/ui/Screens/SignInScreen.dart';
+import 'package:holy_quran/ui/Screens/update_profile_screen.dart';
 import 'package:holy_quran/ui/controllers/auth_controller.dart';
 
 class DrawerWidget extends StatelessWidget {
@@ -31,6 +32,20 @@ class DrawerWidget extends StatelessWidget {
                 ),
               ),
             )
+        ),
+
+        const SizedBox(height: 10,),
+
+        TextButton.icon(
+          onPressed: () {
+            Navigator.push(context, MaterialPageRoute(builder: (context) => const UpdateProfileScreen()));
+          },
+          icon : Icon(Icons.settings, color: lightViolet,),
+          label: Text(
+            'Update Profile',
+            style: GoogleFonts.poppins(
+                fontSize: 16, fontWeight: FontWeight.w500, color: gray),
+          ),
         ),
 
         const SizedBox(height: 30,),

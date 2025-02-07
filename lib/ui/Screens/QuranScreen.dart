@@ -23,7 +23,16 @@ class _QuranScreenState extends State<QuranScreen> {
   @override
   void initState() {
     super.initState();
-    _getSuraList();
+    if (surahList.isEmpty) {
+      _getSuraList();
+    }
+    //_getSuraList();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    surahList.clear();
   }
 
   @override

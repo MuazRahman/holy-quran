@@ -151,14 +151,6 @@ class _HomeScreenState extends State<HomeScreen> {
               color: Colors.white,
             ),
           ),
-
-          // const Spacer(),
-
-          // Search Option
-          // IconButton(
-          //     onPressed: () {},
-          //     icon: SvgPicture.asset('assets/svgs/searchIcon.svg'),
-          // ),
         ],
       ),
     );
