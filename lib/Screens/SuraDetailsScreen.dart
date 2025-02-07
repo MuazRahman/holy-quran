@@ -33,7 +33,7 @@ class _SuraDetailsScreenState extends State<SuraDetailsScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: backgroundColor,
-      appBar: _suraDetailsAppBar(),
+      appBar: _suraDetailsAppBar(context),
       body: Column(
         children: [
           _gradientBox(
@@ -108,12 +108,12 @@ class _SuraDetailsScreenState extends State<SuraDetailsScreen> {
                         actions: [
                             TextButton(
                                 onPressed: () async{
+                                  Navigator.pop(context);
                                   await player.stop();
                                   final audioMap = ayatList[index].audio;
-                                  final firstAudio = audioMap!.values.first;
-                                  final String? url = firstAudio.url;
+                                  final firstAudio = audioMap!.values.toList();
+                                  final String? url = firstAudio[0].url;
                                   await player.play(UrlSource(url!));
-                                  Navigator.pop(context);
                                 },
                             child: Text('Mishary Rashid Al-Afasy',
                                 style: GoogleFonts.poppins(
@@ -121,14 +121,27 @@ class _SuraDetailsScreenState extends State<SuraDetailsScreen> {
                           ),
                           TextButton(
                               onPressed: () async{
+                                Navigator.pop(context);
                                 await player.stop();
                                 final audioMap = ayatList[index].audio;
-                                final secondAudio = audioMap!.values.last;
-                                final String? url = secondAudio.url;
+                                final secondAudio = audioMap!.values.toList();
+                                final String? url = secondAudio[1].url;
                                 await player.play(UrlSource(url!));
-                                Navigator.pop(context);
                               },
                             child: Text('Abu Bakr Al-Shatri',
+                                style: GoogleFonts.poppins(
+                                    fontWeight: FontWeight.bold)),
+                          ),
+                          TextButton(
+                            onPressed: () async{
+                              Navigator.pop(context);
+                              await player.stop();
+                              final audioMap = ayatList[index].audio;
+                              final thirdAudio = audioMap!.values.toList();
+                              final String? url = thirdAudio[2].url;
+                              await player.play(UrlSource(url!));
+                            },
+                            child: Text('Nasser Al Qatami',
                                 style: GoogleFonts.poppins(
                                     fontWeight: FontWeight.bold)),
                           ),
@@ -136,11 +149,6 @@ class _SuraDetailsScreenState extends State<SuraDetailsScreen> {
                         );
                       },
                   );
-                  // final player = AudioPlayer();
-                  // final audioMap = ayatList[index].audio;
-                  // final firstAudio = audioMap!.values.first;
-                  // final String? url = firstAudio.url;
-                  // await player.play(UrlSource(url!));
                 },
                 icon: const Icon(
                   Icons.play_arrow_rounded,
@@ -216,13 +224,21 @@ class _SuraDetailsScreenState extends State<SuraDetailsScreen> {
     _getAyatInProgress = false;
     setState(() {});
   }
+
+  @override
+  void dispose() {
+    super.dispose();
+    ayatList.clear();
+  }
 }
 
-PreferredSizeWidget _suraDetailsAppBar() {
+PreferredSizeWidget _suraDetailsAppBar(BuildContext context) {
   return AppBar(
     backgroundColor: Colors.transparent,
     leading: IconButton(
-      onPressed: () {},
+      onPressed: () {
+        Navigator.pop(context);
+      },
       icon: const Icon(Icons.chevron_left_outlined),
       color: Colors.white,
       style: const ButtonStyle(iconSize: WidgetStatePropertyAll(28)),

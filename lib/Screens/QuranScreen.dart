@@ -106,7 +106,7 @@ class _QuranScreenState extends State<QuranScreen> {
 
     Uri uri = Uri.parse('https://quranapi.pages.dev/api/surah.json');
     Response response = await get(uri);
-    debugPrint(response.body);
+    debugPrint(utf8.decode(response.bodyBytes));
     if (response.statusCode == 200) {
       final decodedData = jsonDecode(utf8.decode(response.bodyBytes));
       for (Map<String, dynamic> s in decodedData) {
