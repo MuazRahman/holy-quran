@@ -62,7 +62,7 @@ class StartScreen extends StatelessWidget {
                     height: 460,
                     width: 400,
                     decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(30),
+                        borderRadius: BorderRadius.circular(18),
                         color: const Color(0xFF672CBC)),
                     // Quran, Cloud, Star svg Image
                     child: SvgPicture.asset(
