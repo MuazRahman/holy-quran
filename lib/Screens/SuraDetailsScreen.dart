@@ -22,10 +22,12 @@ class SuraDetailsScreen extends StatefulWidget {
 class _SuraDetailsScreenState extends State<SuraDetailsScreen> {
   List<SpecificAyatModel> ayatList = [];
   bool _getAyatInProgress = false;
+  late AudioPlayer _audioPlayer;
 
   @override
   void initState() {
     super.initState();
+    _audioPlayer = AudioPlayer();
     _getAyat();
   }
 
@@ -95,7 +97,6 @@ class _SuraDetailsScreenState extends State<SuraDetailsScreen> {
             children: [
               IconButton(
                 onPressed: () {
-                  AudioPlayer player = AudioPlayer();
                   showDialog (
                       context: context,
                       builder: (BuildContext context) {
@@ -109,11 +110,11 @@ class _SuraDetailsScreenState extends State<SuraDetailsScreen> {
                             TextButton(
                                 onPressed: () async{
                                   Navigator.pop(context);
-                                  await player.stop();
+                                  await _audioPlayer.stop();
                                   final audioMap = ayatList[index].audio;
                                   final firstAudio = audioMap!.values.toList();
                                   final String? url = firstAudio[0].url;
-                                  await player.play(UrlSource(url!));
+                                  await _audioPlayer.play(UrlSource(url!));
                                 },
                             child: Text('Mishary Rashid Al-Afasy',
                                 style: GoogleFonts.poppins(
@@ -122,11 +123,11 @@ class _SuraDetailsScreenState extends State<SuraDetailsScreen> {
                           TextButton(
                               onPressed: () async{
                                 Navigator.pop(context);
-                                await player.stop();
+                                await _audioPlayer.stop();
                                 final audioMap = ayatList[index].audio;
                                 final secondAudio = audioMap!.values.toList();
                                 final String? url = secondAudio[1].url;
-                                await player.play(UrlSource(url!));
+                                await _audioPlayer.play(UrlSource(url!));
                               },
                             child: Text('Abu Bakr Al-Shatri',
                                 style: GoogleFonts.poppins(
@@ -135,11 +136,11 @@ class _SuraDetailsScreenState extends State<SuraDetailsScreen> {
                           TextButton(
                             onPressed: () async{
                               Navigator.pop(context);
-                              await player.stop();
+                              await _audioPlayer.stop();
                               final audioMap = ayatList[index].audio;
                               final thirdAudio = audioMap!.values.toList();
                               final String? url = thirdAudio[2].url;
-                              await player.play(UrlSource(url!));
+                              await _audioPlayer.play(UrlSource(url!));
                             },
                             child: Text('Nasser Al Qatami',
                                 style: GoogleFonts.poppins(
@@ -228,6 +229,7 @@ class _SuraDetailsScreenState extends State<SuraDetailsScreen> {
   @override
   void dispose() {
     super.dispose();
+    _audioPlayer.dispose();
     ayatList.clear();
   }
 }
