@@ -241,7 +241,7 @@ PreferredSizeWidget _suraDetailsAppBar(BuildContext context) {
       onPressed: () {
         Navigator.pop(context);
       },
-      icon: const Icon(Icons.chevron_left_outlined),
+      icon: const Icon(Icons.arrow_back_ios_new_rounded),
       color: Colors.white,
       style: const ButtonStyle(iconSize: WidgetStatePropertyAll(28)),
     ),
