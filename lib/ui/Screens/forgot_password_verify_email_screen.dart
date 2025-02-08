@@ -20,7 +20,8 @@ class ForgotPasswordVerifyEmailScreen extends StatefulWidget {
       _ForgotPasswordVerifyEmailScreenState();
 }
 
-class _ForgotPasswordVerifyEmailScreenState extends State<ForgotPasswordVerifyEmailScreen> {
+class _ForgotPasswordVerifyEmailScreenState
+    extends State<ForgotPasswordVerifyEmailScreen> {
   final TextEditingController _emailTEController = TextEditingController();
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   bool _getVerifyEmailInProgress = false;
@@ -32,70 +33,70 @@ class _ForgotPasswordVerifyEmailScreenState extends State<ForgotPasswordVerifyEm
     return Scaffold(
       backgroundColor: backgroundColor,
       body: SingleChildScrollView(
-          child: Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: Form(
-              key: _formKey,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const SizedBox(
-                    height: 80,
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Form(
+            key: _formKey,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const SizedBox(
+                  height: 80,
+                ),
+                Text(
+                  'Your email address',
+                  style: textTheme.titleLarge,
+                ),
+                const SizedBox(
+                  height: 4,
+                ),
+                const Text(
+                  'A 6 digit of OTP will be sent to your email address',
+                  style: TextStyle(
+                    color: Colors.black45,
+                    fontWeight: FontWeight.w500,
                   ),
-                  Text(
-                    'Your email address',
-                    style: textTheme.titleLarge,
+                ),
+                const SizedBox(
+                  height: 24,
+                ),
+                TextFormField(
+                  controller: _emailTEController,
+                  keyboardType: TextInputType.emailAddress,
+                  decoration: const InputDecoration(
+                    hintText: 'Email',
                   ),
-                  const SizedBox(
-                    height: 4,
-                  ),
-                  const Text(
-                    'A 6 digit of OTP will be sent to your email address',
-                    style: TextStyle(
-                      color: Colors.black45,
-                      fontWeight: FontWeight.w500,
-                    ),
-                  ),
-                  const SizedBox(
-                    height: 24,
-                  ),
-                  TextFormField(
-                    controller: _emailTEController,
-                    keyboardType: TextInputType.emailAddress,
-                    decoration: const InputDecoration(
-                      hintText: 'Email',
-                    ),
-                    validator: (String? value) {
-                      if (value?.trim().isEmpty ?? true) {
-                        return 'Enter a valid email address';
-                      }
-                      return null;
+                  validator: (String? value) {
+                    if (value?.trim().isEmpty ?? true) {
+                      return 'Enter a valid email address';
+                    }
+                    return null;
+                  },
+                ),
+                const SizedBox(
+                  height: 24,
+                ),
+                Visibility(
+                  visible: !_getVerifyEmailInProgress,
+                  replacement: const CenteredCircularProgressIndicator(),
+                  child: ElevatedButton(
+                    onPressed: () {
+                      _onTapVerifyEmailButton();
                     },
+                    child: const Icon(Icons.arrow_circle_right_outlined),
                   ),
-                  const SizedBox(
-                    height: 24,
-                  ),
-                  Visibility(
-                    visible: !_getVerifyEmailInProgress,
-                    replacement: const CenteredCircularProgressIndicator(),
-                    child: ElevatedButton(
-                      onPressed: () {
-                        _onTapVerifyEmailButton();
-                      },
-                      child: const Icon(Icons.arrow_circle_right_outlined),
-                    ),
-                  ),
-                  const SizedBox(
-                    height: 48,
-                  ),
-                  Center(
-                    child: _buildSignInSection(),
-                  ),
-                ],
-              ),
+                ),
+                const SizedBox(
+                  height: 48,
+                ),
+                Center(
+                  child: _buildSignInSection(),
+                ),
+              ],
             ),
           ),
         ),
+      ),
     );
   }
 
@@ -119,13 +120,12 @@ class _ForgotPasswordVerifyEmailScreenState extends State<ForgotPasswordVerifyEm
         String email = _emailTEController.text.trim();
         print("Email is => $email");
         // Navigator.to(context, ForgotPasswordVerifyOtpScreen.name, arguments: email);
-        Navigator.of(context).push(MaterialPageRoute(builder: (context) => ForgotPasswordVerifyOtpScreen(email: email)));
-      }
-      else {
+        Navigator.of(context).push(MaterialPageRoute(
+            builder: (context) => ForgotPasswordVerifyOtpScreen(email: email)));
+      } else {
         showSnackBarMessage(context, 'No user found');
       }
-    }
-    else {
+    } else {
       showSnackBarMessage(context, 'Network error. Please try again later');
     }
   }

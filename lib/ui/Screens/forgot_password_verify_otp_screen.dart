@@ -13,19 +13,23 @@ import '../widgets/snack_bar_message.dart';
 
 class ForgotPasswordVerifyOtpScreen extends StatefulWidget {
   final String email;
+
   const ForgotPasswordVerifyOtpScreen({super.key, required this.email});
 
   static const String name = '/forgot-password/verify-otp';
 
   @override
-  State<ForgotPasswordVerifyOtpScreen> createState() => _ForgotPasswordVerifyOtpScreenState();
+  State<ForgotPasswordVerifyOtpScreen> createState() =>
+      _ForgotPasswordVerifyOtpScreenState();
 }
 
-class _ForgotPasswordVerifyOtpScreenState extends State<ForgotPasswordVerifyOtpScreen> {
+class _ForgotPasswordVerifyOtpScreenState
+    extends State<ForgotPasswordVerifyOtpScreen> {
   final TextEditingController _otpTEController = TextEditingController();
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   bool _getVerifyOTPInProgress = false;
   RecoverVerifyOTP? recoverVerifyOtp;
+
   // String? email;
   //
   // @override
@@ -42,59 +46,59 @@ class _ForgotPasswordVerifyOtpScreenState extends State<ForgotPasswordVerifyOtpS
     return Scaffold(
       backgroundColor: backgroundColor,
       body: SingleChildScrollView(
-          child: Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: Form(
-              key: _formKey,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const SizedBox(
-                    height: 80,
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Form(
+            key: _formKey,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const SizedBox(
+                  height: 80,
+                ),
+                Text(
+                  'Pin Verification',
+                  style: textTheme.titleLarge,
+                ),
+                const SizedBox(
+                  height: 4,
+                ),
+                const Text(
+                  'A 6 digit of OTP has been sent to your email address',
+                  style: TextStyle(
+                    color: Colors.black45,
+                    fontWeight: FontWeight.w500,
                   ),
-                  Text(
-                    'Pin Verification',
-                    style: textTheme.titleLarge,
+                ),
+                const SizedBox(
+                  height: 24,
+                ),
+                _buildPinCodeTextField(),
+                const SizedBox(
+                  height: 24,
+                ),
+                Visibility(
+                  visible: _getVerifyOTPInProgress == false,
+                  replacement: const CenteredCircularProgressIndicator(),
+                  child: ElevatedButton(
+                    onPressed: () {
+                      _onTapVerifyOTPButton();
+                      //Navigator.pushNamed(context, ResetPasswordScreen.name);
+                    },
+                    child: const Icon(Icons.arrow_circle_right_outlined),
                   ),
-                  const SizedBox(
-                    height: 4,
-                  ),
-                  const Text(
-                    'A 6 digit of OTP has been sent to your email address',
-                    style: TextStyle(
-                      color: Colors.black45,
-                      fontWeight: FontWeight.w500,
-                    ),
-                  ),
-                  const SizedBox(
-                    height: 24,
-                  ),
-                  _buildPinCodeTextField(),
-                  const SizedBox(
-                    height: 24,
-                  ),
-                  Visibility(
-                    visible: _getVerifyOTPInProgress == false,
-                    replacement: const CenteredCircularProgressIndicator(),
-                    child: ElevatedButton(
-                      onPressed: () {
-                        _onTapVerifyOTPButton();
-                        //Navigator.pushNamed(context, ResetPasswordScreen.name);
-                      },
-                      child: const Icon(Icons.arrow_circle_right_outlined),
-                    ),
-                  ),
-                  const SizedBox(
-                    height: 48,
-                  ),
-                  Center(
-                    child: _buildSignInSection(),
-                  ),
-                ],
-              ),
+                ),
+                const SizedBox(
+                  height: 48,
+                ),
+                Center(
+                  child: _buildSignInSection(),
+                ),
+              ],
             ),
           ),
         ),
+      ),
     );
   }
 
@@ -103,16 +107,17 @@ class _ForgotPasswordVerifyOtpScreenState extends State<ForgotPasswordVerifyOtpS
       _getVerifyOTP();
     }
   }
+
   // the email is not received from forgotPasswordVerifyEmailScreen
   Future<void> _getVerifyOTP() async {
     _getVerifyOTPInProgress = true;
     setState(() {});
     print(widget.email);
     final NetworkResponse response = await NetworkCaller.getRequest(
-        url: Urls.recoverVerifyOTPlUrl(
-            widget.email ?? '',
-            _otpTEController.text.trim(),
-        ),
+      url: Urls.recoverVerifyOTPlUrl(
+        widget.email ?? '',
+        _otpTEController.text.trim(),
+      ),
     );
     _getVerifyOTPInProgress = false;
     setState(() {});
@@ -121,7 +126,11 @@ class _ForgotPasswordVerifyOtpScreenState extends State<ForgotPasswordVerifyOtpS
       if (recoverVerifyOtp!.status == 'success') {
         // Navigator.pushNamed(context, ResetPasswordScreen.name);
         String otp = _otpTEController.text.trim();
-        Navigator.of(context).push(MaterialPageRoute(builder: (context) => ResetPasswordScreen(email: widget.email,otp: otp,)));
+        Navigator.of(context).push(MaterialPageRoute(
+            builder: (context) => ResetPasswordScreen(
+                  email: widget.email,
+                  otp: otp,
+                )));
       } else {
         showSnackBarMessage(context, 'No user found');
       }
@@ -176,7 +185,8 @@ class _ForgotPasswordVerifyOtpScreenState extends State<ForgotPasswordVerifyOtpS
               ..onTap = () {
                 Navigator.pushAndRemoveUntil(
                     context,
-                    MaterialPageRoute(builder: (context) => const SignInScreen()),
+                    MaterialPageRoute(
+                        builder: (context) => const SignInScreen()),
                     (value) => false);
               },
           ),
@@ -189,6 +199,5 @@ class _ForgotPasswordVerifyOtpScreenState extends State<ForgotPasswordVerifyOtpS
   void dispose() {
     super.dispose();
     _otpTEController.dispose();
-
   }
 }

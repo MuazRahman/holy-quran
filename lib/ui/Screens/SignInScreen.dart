@@ -1,5 +1,6 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:holy_quran/colors.dart';
 import 'package:holy_quran/data/models/user_model.dart';
 import 'package:holy_quran/data/services/network_caller.dart';
@@ -86,8 +87,13 @@ class _SignInScreenState extends State<SignInScreen> {
                     replacement: const CenteredCircularProgressIndicator(),
                     child: ElevatedButton(
                       onPressed: _onTapSignInButton,
-                      child: const Icon(Icons.arrow_circle_right_outlined),
+                    child: Text(
+                      'Log In',
+                      style: GoogleFonts.poppins(color: Colors.white,
+
+                      ),
                     ),
+                  ),
                   ),
                   const SizedBox(
                     height: 48,

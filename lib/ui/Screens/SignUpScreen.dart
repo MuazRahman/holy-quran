@@ -1,5 +1,6 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:holy_quran/colors.dart';
 import 'package:holy_quran/data/services/network_caller.dart';
 import 'package:holy_quran/data/utils/urls.dart';
@@ -135,7 +136,12 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     replacement: const CenteredCircularProgressIndicator(),
                     child: ElevatedButton(
                       onPressed: _onTapSignUpButton,
-                      child: const Icon(Icons.arrow_circle_right_outlined),
+                      child: Text(
+                        'Sign Up',
+                        style: GoogleFonts.poppins(color: Colors.white,
+
+                        ),
+                      ),
                     ),
                   ),
                   const SizedBox(
